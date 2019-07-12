@@ -2,6 +2,7 @@
 #include <iostream>
 #include "reader.h"
 #include "particle.h"
+#include "scintillator.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ int main( int argc , char** argv){
 	hipo::bank  head(factory.getSchema("REC::Event"));
 
 	clas12::particle particles(factory.getSchema("REC::Particle"));
+	clas12::scintillator scintillators(factory.getSchema("REC::Scintillator"));
 
 	hipo::event      event;
 
@@ -36,10 +38,17 @@ int main( int argc , char** argv){
 		event.getStructure(band_hits);
 		event.getStructure(head);
 		event.getStructure(particles);
-	
+		event.getStructure(scintillators);
+
 		if( particles.getPid(0) == 11 )
 			particles.show();
+
+		//scintillators.show();
 		
+		for( int row = 0 ; row < particles.getRows() ; row++){
+			
+		}
+
 
 		int nrows = band_hits.getRows();
 		if(nrows != 0 )printf("---------- BAND_HITS BANK CONTENT -------\n");
